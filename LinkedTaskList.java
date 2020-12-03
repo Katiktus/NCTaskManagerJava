@@ -1,26 +1,45 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
-class Node {
-	Node next;
-	Task task;
-
-	public Node(Task task) {
-		this.task = task;
-		this.next = null;
-	}
-
-	public Node(){
-		this.task = null;
-		this.task = null;
-	}
-}
+/**
+ * Class LinkedTaskList.
+ * @author Pohorila
+ * @version 1.0
+ *
+ */
 
 public class LinkedTaskList{
 
+/**Inner class Node
+ * */
+	class Node {
+	/** Information about next node.*/
+		Node next;
+	/**Information about task. */
+		Task task;
+
+		public Node(Task task) {
+			this.task = task;
+			this.next = null;
+		}
+
+		public Node(){
+			this.task = null;
+			this.task = null;
+		}
+	}
+
+	/**
+	 * @Node head - first node
+	 * @Node tail - last node
+	 * @int size - number of tasks in list
+	 */
 		Node head;
 		Node tail;
 		int size = 0;
 
+	/**Method that add the task to list.
+	 * @Task task - item for add
+	 * */
 		public void add(Task task) {
 			Node a = new Node();
 			if(task != null) {
@@ -37,7 +56,9 @@ public class LinkedTaskList{
 			}
 			this.size++;
 		}
-
+	/**Method that remove the task from task list.
+	 * @Task task - item for deleting
+	 *@return a value indicating whether the event was deleted or not*/
 		public boolean remove(Task task) {
 			boolean isRemove = false;
 			if(task == null) {
@@ -52,9 +73,6 @@ public class LinkedTaskList{
 				head = head.next;
 				isRemove = true;
 			}
-			/*else if(tail.task == task){
-				tail = null;
-			}*/
 			Node a = head;
 			do{
 				if(a.next.task == task){
@@ -74,10 +92,15 @@ public class LinkedTaskList{
 			return isRemove;
 		}
 
+	/**Method that returns the number of tasks.
+	 * @return amount of tasks*/
 		public int size() {
 			return this.size;
 		}
 
+	/**Method that returns task from the index
+	 * @param i index of necessary task
+	 * @return needed task or null if index < 0*/
 		public Task getTask(int i){
 			if(i<=0 && i>size){
 				return null;
@@ -90,6 +113,10 @@ public class LinkedTaskList{
 			}
 			return p1.task;
 	}
+	/**Method that returns list of incoming tasks.
+	 * @param from start interval time
+	 * @param to  end interval time
+	 * @return list of incoming tasks*/
 		public LinkedTaskList incoming(int from, int to){
 			LinkedTaskList list = new LinkedTaskList();
 			for (Node a = this.head; a!=null; a = a.next) {
