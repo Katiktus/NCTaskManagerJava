@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  */
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList{
 	/**Declaration list of tasks.*/
 	private Task[] tasks = new Task[15];
 
