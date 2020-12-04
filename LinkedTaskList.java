@@ -7,7 +7,7 @@ package ua.edu.sumdu.j2se.pohorila.tasks;
  *
  */
 
-public class LinkedTaskList{
+public class LinkedTaskList extends AbstractTaskList{
 
 /**Inner class Node
  * */
