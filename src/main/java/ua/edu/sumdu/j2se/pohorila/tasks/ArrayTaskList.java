@@ -1,5 +1,9 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
-import java.util.Arrays;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Class ArrayTaskList.
@@ -8,7 +12,7 @@ import java.util.Arrays;
  *
  */
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 	/**Declaration list of tasks.*/
 	private Task[] tasks = new Task[15];
 
@@ -48,7 +52,7 @@ public class ArrayTaskList {
 		}
 		boolean isRemove = false;
 		for(int i = 0; i < tasks.length; i++){
-			if(tasks[i].equals(task)){
+			if(this.tasks[i].equals(task)){
 				tasks[i] = null;
 				for (int j = i; j < size(); j++){
 					tasks[j] = tasks[j+1];
@@ -66,9 +70,9 @@ public class ArrayTaskList {
 	/**Method that returns task from the index
 	 * @param index index of necessary task
 	 * @return needed task or null if index < 0*/
-	public Task getTask(int index){
-		if(index < 0){
-			return null;
+	public Task getTask(int index) throws IndexOutOfBoundsException{
+		if(index < 0 || index > tasks.length){
+			throw new IndexOutOfBoundsException("index > size of array or < 0");
 		}
 		else{
 			return tasks[index];
@@ -87,4 +91,68 @@ public class ArrayTaskList {
 		}
 		return incomingTasks;
 	}
+
+	@Override
+	public Iterator<Task> iterator() {
+		Iterator<Task> it = new Iterator<Task>() {
+			private int last = -1;
+			private int currentIndex = 0;
+
+			@Override
+			public boolean hasNext() {
+				return currentIndex < tasks.length && tasks[currentIndex] != null;
+			}
+
+			@Override
+			public Task next() {
+				last = currentIndex;
+				return tasks[currentIndex++];
+			}
+
+			@Override
+			public void remove() {
+				if(currentIndex > 0 ){
+					ArrayTaskList.this.remove(tasks[last]);
+					currentIndex--;
+				}
+				else {
+					throw new IllegalStateException();
+				}
+			}
+		};
+		return it;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof ArrayTaskList))
+			return false;
+		ArrayTaskList tasks1 = (ArrayTaskList) o;
+		return Arrays.equals(tasks, tasks1.tasks);
+	}
+
+	@Override
+	public int hashCode() {
+		return size()^tasks.length*16+1;
+	}
+
+	@Override
+	public String toString() {
+		return "ArrayTaskList{" +
+			"tasks=" + Arrays.toString(tasks) +
+			'}';
+	}
+
+	@Override
+	public ArrayTaskList clone() throws CloneNotSupportedException {
+		ArrayTaskList clone = new ArrayTaskList();
+		for(int i = 0; i < size(); i++){
+			clone.add(this.tasks[i]);
+		};
+		return clone;
+	}
+
+
 }
