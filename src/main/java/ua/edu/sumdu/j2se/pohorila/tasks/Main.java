@@ -1,18 +1,26 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
+import java.util.Iterator;
+
 public class Main {
 	public static void main(String[] args) {
 		Task test = new Task("Course", 10);
-		System.out.println(test.getTitle());
-		test.setActive(true);
-		test.setTitle("Course0");
-		System.out.println(test.getEndTime());
-		System.out.println(test.getRepeatInterval());
-		Task test2 = new Task("Course1", 5, 9, 24);
-		test2.setTime(25);
-		test2.setTime(10, 20, 3);
-		System.out.println(test2.getStartTime());
-		System.out.println(test2.nextTimeAfter(59));
+		Task test2 = new Task("Course2", 5, 9, 24);
+		Task test3 = new Task("Course3", 5, 9, 24);
+		Task test5 = new Task("Course5", 5, 9, 24);
+		Task test6 = new Task("Course6", 5, 9, 24);
+		LinkedTaskList linkedTaskList = new LinkedTaskList();
+		linkedTaskList.add(test3);
+		linkedTaskList.add(test2);
+		linkedTaskList.add(test5);
+		linkedTaskList.add(test6);
+
+		Iterator<Task> inter = linkedTaskList.iterator();
+		while (inter.hasNext()){
+			System.out.println(inter);
+			inter.remove();
+		}
+
 	}
 
 }

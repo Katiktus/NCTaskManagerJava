@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
+import java.util.Objects;
+
 /**
  * Class Task.
  * @author Pohorila
@@ -7,7 +9,7 @@ package ua.edu.sumdu.j2se.pohorila.tasks;
  *
  */
 
-public class Task {
+public class Task implements Cloneable{
     /** Name of task. */
     private String title;
     /** Time of task. */
@@ -29,8 +31,14 @@ public class Task {
      * @param time time of execution
      */
     public Task(String title, int time){
+        if(time < 0){
+            throw new IllegalArgumentException("Time is negative");
+        }
+        else {
+            this.time = time;
+
+        }
         this.title = title;
-        this.time = time;
         this.active = false;
         this.repeated = false;
     }
@@ -43,10 +51,14 @@ public class Task {
      * @param interval task interval
      */
      public Task(String title, int start, int end, int interval){
+         if(start < 0 || end < 0 || interval < 0){
+             throw new IllegalArgumentException("They negative");
+         }else{
+             this.start = start;
+             this.end = end;
+             this.interval = interval;
+         }
          this.title = title;
-         this.start = start;
-         this.end = end;
-         this.interval = interval;
          this.active = false;
          this.repeated = true;
      }
@@ -201,4 +213,42 @@ public class Task {
             return -1;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return time == task.time &&
+            start == task.start &&
+            end == task.end &&
+            interval == task.interval &&
+            active == task.active &&
+            repeated == task.repeated &&
+            title.equals(task.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return time*start^end+interval;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+            "title='" + title + '\'' +
+            ", time=" + time +
+            ", start=" + start +
+            ", end=" + end +
+            ", interval=" + interval +
+            ", active=" + active +
+            ", repeated=" + repeated +
+            '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }
