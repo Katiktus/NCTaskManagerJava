@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Class ArrayTaskList.
@@ -79,19 +80,6 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		}
 	}
 
-	/**Method that returns list of incoming tasks.
-	 * @param from start interval time
-	 * @param to  end interval time
-	 * @return list of incoming tasks*/
-	public ArrayTaskList incoming(int from, int to){
-		ArrayTaskList incomingTasks = new ArrayTaskList();
-		for(int i = 0; i < size(); i++){
-			if (tasks[i].nextTimeAfter(from) > from && tasks[i].nextTimeAfter(from) <= to)
-				incomingTasks.add(tasks[i]);
-		}
-		return incomingTasks;
-	}
-
 	@Override
 	public Iterator<Task> iterator() {
 		Iterator<Task> it = new Iterator<Task>() {
@@ -134,7 +122,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode(){
 		return size()^tasks.length*16+1;
 	}
 
@@ -154,5 +142,12 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		return clone;
 	}
 
+	public Stream<Task> getStream() {
+		Task[] tasks = new Task[this.size()];
+		for(int i = 0; i < size(); ++i) {
+			tasks[i] = getTask(i);
+		}
+		return Arrays.stream(tasks);
+	}
 
 }
