@@ -3,6 +3,7 @@ package ua.edu.sumdu.j2se.pohorila.tasks;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Class LinkedTaskList.
@@ -114,20 +115,6 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 			}
 			return p1.task;
 	}
-	/**Method that returns list of incoming tasks.
-	 * @param from start interval time
-	 * @param to  end interval time
-	 * @return list of incoming tasks*/
-		public LinkedTaskList incoming(int from, int to){
-			LinkedTaskList list = new LinkedTaskList();
-			for (Node a = this.head; a!=null; a = a.next) {
-				if (a.task.nextTimeAfter(from) > from && a.task.nextTimeAfter(from) <= to){
-					list.add(a.task);
-			}
-			}
-			return list;
-		}
-
 
 	@Override
 	public	Iterator<Task> iterator() {
@@ -195,5 +182,12 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 		return (LinkedTaskList) super.clone();
 	}
 
+	public Stream<Task> getStream() {
+		Task[] tasks = new Task[this.size()];
+		for(int i = 0; i < size(); ++i) {
+			tasks[i] = getTask(i);
+		}
+		return Arrays.stream(tasks);
+	}
 
 }
