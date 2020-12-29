@@ -2,7 +2,6 @@ package ua.edu.sumdu.j2se.pohorila.tasks;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
