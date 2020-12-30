@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import static java.util.Objects.hash;
 
 /**
  * Class Task.
@@ -13,11 +14,11 @@ public class Task implements Cloneable{
     /** Name of task. */
     private String title;
     /** Time of task. */
-    private int time;
+    private LocalDateTime time;
     /** Time of start. */
-    private int start;
+    private LocalDateTime start;
     /** Time of end task. */
-    private int end;
+    private LocalDateTime end;
     /** Interval of execution. */
     private int interval;
     /** Active state. */
@@ -30,13 +31,12 @@ public class Task implements Cloneable{
      * @param title name of task
      * @param time time of execution
      */
-    public Task(String title, int time){
-        if(time < 0){
-            throw new IllegalArgumentException("Time is negative");
+    public Task(String title, LocalDateTime time){
+        if(time == null){
+            throw new IllegalArgumentException("Invalid argument");
         }
         else {
             this.time = time;
-
         }
         this.title = title;
         this.active = false;
@@ -50,18 +50,18 @@ public class Task implements Cloneable{
      * @param end time of end
      * @param interval task interval
      */
-     public Task(String title, int start, int end, int interval){
-         if(start < 0 || end < 0 || interval < 0){
-             throw new IllegalArgumentException("They negative");
-         }else{
-             this.start = start;
-             this.end = end;
-             this.interval = interval;
-         }
-         this.title = title;
-         this.active = false;
-         this.repeated = true;
-     }
+    public Task(String title, LocalDateTime start, LocalDateTime end, int interval){
+        if(start == null || end == null || interval < 0){
+            throw new IllegalArgumentException("Invalid argument");
+        }else{
+            this.start = start;
+            this.end = end;
+            this.interval = interval;
+        }
+        this.title = title;
+        this.active = false;
+        this.repeated = true;
+    }
 
     /**
      * Getter for title.
@@ -99,7 +99,7 @@ public class Task implements Cloneable{
      * Getter for time.
      * @return time of task
      */
-    public int getTime(){
+    public LocalDateTime getTime(){
         if(repeated){
             return start;
         }
@@ -112,11 +112,11 @@ public class Task implements Cloneable{
      * Setter for time.
      * @param time set time of task
      */
-    public void setTime(int time){
+    public void setTime(LocalDateTime time){
         if(repeated){
             this.repeated = false;
         }
-        if(time > this.end){
+        if(time.isAfter(this.end)){
             this.interval = 0;
         }
         this.time = time;
@@ -126,7 +126,7 @@ public class Task implements Cloneable{
      * Getter for start time.
      * @return start time of task
      */
-    public int getStartTime(){
+    public LocalDateTime getStartTime(){
         if(!repeated){
             return time;
         }
@@ -139,7 +139,7 @@ public class Task implements Cloneable{
      * Getter for end time.
      * @return end time of task
      */
-    public int getEndTime(){
+    public LocalDateTime getEndTime(){
         if(!repeated){
             return time;
         }
@@ -162,8 +162,8 @@ public class Task implements Cloneable{
      * @param end time of end start
      * @param interval task interval
      */
-    public void setTime(int start, int end, int interval){
-        if(this.time > end){
+    public void setTime(LocalDateTime start, LocalDateTime end, int interval){
+        if(this.time.isAfter(end)){
             this.interval = 0;
         }
         this.interval = interval;
@@ -186,32 +186,30 @@ public class Task implements Cloneable{
      * @param current current time
      * @return next execution time after current
      */
-    public int nextTimeAfter(int current){
-        if(isRepeated() & isActive()){
-            if(current < start){
-                return start;
-            }
-            else if(current == start){
-                return start + interval;
-            }
-            else if(current + interval <= end){
-                return ((current - start)/interval)*(2*interval) + start;
-            }
-            else{
-                return -1;
+    public LocalDateTime nextTimeAfter(LocalDateTime current){
+        if (isRepeated() && isActive()) {
+            LocalDateTime next = start;
+            if (current.isBefore(start)) {
+                return next;
+            } else if (current.isAfter(end)) {
+                return null;
+            } else {
+                while (next.isBefore(end) || next.isEqual(end)) {
+                    if (next.isAfter(current)) {
+                        return next;
+                    }
+                    next = next.plusSeconds(interval);
+                }
             }
         }
-        else if(!isRepeated() && isActive()){
-            if(current < time){
+        else if (!isRepeated() && isActive()) {
+            if (current.isBefore(time)) {
                 return time;
             }
-            else{
-                return -1;
-            }
+            return null;
         }
-        else{
-            return -1;
-        }
+        return null;
+
     }
 
     @Override
@@ -219,9 +217,10 @@ public class Task implements Cloneable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return time == task.time &&
-            start == task.start &&
-            end == task.end &&
+        return
+            // time == task.time &&
+           // start == task.start &&
+           // end == task.end &&
             interval == task.interval &&
             active == task.active &&
             repeated == task.repeated &&
@@ -230,7 +229,7 @@ public class Task implements Cloneable{
 
     @Override
     public int hashCode() {
-        return time*start^end+interval;
+        return hash(interval, title);
     }
 
     @Override

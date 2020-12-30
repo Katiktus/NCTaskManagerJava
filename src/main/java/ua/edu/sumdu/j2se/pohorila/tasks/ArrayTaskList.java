@@ -1,10 +1,7 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * Class ArrayTaskList.
