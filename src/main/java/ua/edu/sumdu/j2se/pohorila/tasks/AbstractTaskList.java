@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
 /**
@@ -9,7 +10,7 @@ import java.util.stream.Stream;
  *
  */
 
-abstract public class AbstractTaskList implements Iterable<Task> {
+abstract public class AbstractTaskList implements Iterable<Task>, Serializable {
 	/**
 	 * @ListTypes.types type - is it array or linked list
 	 */

@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.pohorila.tasks;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import static java.util.Objects.hash;
 
@@ -10,7 +11,7 @@ import static java.util.Objects.hash;
  *
  */
 
-public class Task implements Cloneable{
+public class Task implements Cloneable, Serializable {
     /** Name of task. */
     private String title;
     /** Time of task. */
