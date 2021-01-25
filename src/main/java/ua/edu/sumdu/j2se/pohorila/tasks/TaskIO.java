@@ -75,7 +75,7 @@ public class TaskIO {
 		}
 	}
 
-	public static void write(AbstractTaskList tasks, Writer out)  throws IOException{ //?
+	public static void write(AbstractTaskList tasks, Writer out)  throws IOException{
 		String json = new Gson().toJson(tasks);
 		try (BufferedWriter writer = new BufferedWriter(out)) {
 			writer.write(json);
@@ -85,7 +85,7 @@ public class TaskIO {
 		}
 	}
 
-	public static void read(AbstractTaskList tasks, Reader in){ //?
+	public static void read(AbstractTaskList tasks, Reader in){
 		AbstractTaskList abstractTasks = new Gson().fromJson(in, tasks.getClass());
 		for (Task task: abstractTasks) {
 			tasks.add(task);
