@@ -68,8 +68,6 @@ public class TaskIO {
 	public static void readBinary(AbstractTaskList tasks, File file){
 		try(BufferedInputStream stream = new BufferedInputStream(new FileInputStream(file))) {
 			read(tasks, stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
