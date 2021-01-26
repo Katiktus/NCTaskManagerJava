@@ -4,10 +4,8 @@ import org.apache.log4j.Logger;
 import ua.edu.sumdu.j2se.pohorila.notification.ScreenNotification;
 import ua.edu.sumdu.j2se.pohorila.tasks.*;
 import ua.edu.sumdu.j2se.pohorila.notification.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
+
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -44,7 +42,7 @@ public class LoadManager {
 		taskIO.writeText(linkedTaskList, file);
 	}
 
-	protected void choice(){
+	protected void choice() throws IOException {
 		int action = 0;
 		System.out.print("What do you want? (enter tne number)\n" +
 			"1. add task\n" +
@@ -82,7 +80,7 @@ public class LoadManager {
 		}
 	}
 
-	protected void showList() {
+	protected void showList() throws IOException {
 		if(linkedTaskList.size() <= 0){
 			System.out.println("Your list is empty now");
 			log.info("Empty list");
@@ -92,9 +90,10 @@ public class LoadManager {
 			}
 			log.info("List output");
 		}
+		loader();
 	}
 
-	protected void showCalendar() {
+	protected void showCalendar() throws IOException {
 		System.out.println("Enter date of start in format yyyy.MM.dd HH:mm:ss:");
 		LocalDateTime start = enterDateTime();
 		System.out.println("Enter date of end in format yyyy.MM.dd HH:mm:ss:");
@@ -113,9 +112,10 @@ public class LoadManager {
 			log.error("Wrong input");
 		}
 		log.info("It`s calendar");
+		loader();
 	}
 
-	protected void edit(){
+	protected void edit() throws IOException {
 		System.out.println("Enter number of task to edit");
 		int i = in.nextInt();
 		System.out.print("What fo you want to edit? (enter tne number)\n" +
@@ -149,9 +149,10 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t edited");
 		}
+		loader();
 	}
 
-	protected void delete(){
+	protected void delete() throws IOException {
 		System.out.println("Enter number of task to delete");
 		int i = in.nextInt();
 		System.out.println("Do you really want to delete task " + i + "? (1 if yes, or smth else if no)");
@@ -162,9 +163,10 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t deleted");
 		}
+		loader();
 	}
 
-	protected void add(){
+	protected void add() throws IOException {
 		Task temp = new Task(" ",  LocalDateTime.now());
 		int t;
 		temp.setTime(LocalDateTime.now(), LocalDateTime.now(), 0);
@@ -198,6 +200,7 @@ public class LoadManager {
 		}
 		linkedTaskList.add(temp);
 		log.info("Task was added");
+		loader();
 	}
 
 	private static LocalDateTime enterDateTime() {
@@ -220,7 +223,7 @@ public class LoadManager {
 		return enterDateTime();
 	}
 
-	protected void chooseNotification(){
+	protected void chooseNotification() throws IOException {
 		System.out.println("Do you want to receive notifications? (Y - if yes, N - if no)");
 		String action = in.nextLine();
 		if(action == "Y"){
@@ -257,5 +260,6 @@ public class LoadManager {
 				log.error("Wrong input in chooseNotification()");
 			}
 		}
+		loader();
 	}
 }
