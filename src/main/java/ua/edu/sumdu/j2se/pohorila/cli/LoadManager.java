@@ -31,16 +31,13 @@ public class LoadManager {
 		if(file.length()!=0) {
 			taskIO.readText(linkedTaskList, file);
 		}
-		OutputStream out = null;
 		System.out.println("Hello, it`s your Task Manager");
 		if (linkedTaskList.size() == 0) {
 			System.out.println("Your task list is empty now");
 		} else {
 			System.out.println("Your task list:");
-			try {
-				TaskIO.write(linkedTaskList, out);
-			} catch (IOException e) {
-				e.printStackTrace();
+			for (Task task : linkedTaskList) {
+				System.out.println(linkedTaskList.toString());
 			}
 		}
 		choice();
