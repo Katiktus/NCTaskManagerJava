@@ -6,11 +6,7 @@ import ua.edu.sumdu.j2se.pohorila.tasks.*;
 import ua.edu.sumdu.j2se.pohorila.notification.*;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -38,7 +34,6 @@ public class LoadManager {
 			}
 		}
 		choice();
-		TaskIO.writeText(linkedTaskList, file);
 	}
 
 	protected void choice() throws IOException {
@@ -148,6 +143,7 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t edited");
 		}
+		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
 
@@ -162,6 +158,7 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t deleted");
 		}
+		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
 
@@ -199,6 +196,7 @@ public class LoadManager {
 		}
 		linkedTaskList.add(temp);
 		log.info("Task was added");
+		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
 
