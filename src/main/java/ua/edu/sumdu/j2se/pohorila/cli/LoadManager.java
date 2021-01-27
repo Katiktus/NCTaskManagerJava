@@ -12,7 +12,7 @@ import java.util.*;
 
 public class LoadManager {
 	static Scanner in = new Scanner(System.in);
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 	LinkedTaskList linkedTaskList = (LinkedTaskList) TaskListFactory.createTaskList(ListTypes.types.LINKED);
 	File file = new File("src//res.txt");
 	static ScreenNotification snote;
@@ -88,9 +88,9 @@ public class LoadManager {
 	}
 
 	protected void showCalendar() throws IOException {
-		System.out.println("Enter date of start in format yyyy.MM.dd HH:mm:ss:");
+		System.out.println("Enter date of start in format " + formatter + ":");
 		LocalDateTime start = enterDateTime();
-		System.out.println("Enter date of end in format yyyy.MM.dd HH:mm:ss:");
+		System.out.println("Enter date of end in format " + formatter + ":");
 		LocalDateTime end = enterDateTime();
 		if (!start.isAfter(end)) {
 			SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(linkedTaskList, start, end);
@@ -126,13 +126,13 @@ public class LoadManager {
 			String temp = in.nextLine();
 			task.setTitle(temp);
 		}else if(t == 2){
-			System.out.println("Enter date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter date in format " + formatter + ":");
 			task.setTime(enterDateTime());
 		}else if(t == 3){
-			System.out.println("Enter start date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter start date in format " + formatter + ":");
 			task.setTime(enterDateTime(), task.getEndTime(), task.getRepeatInterval());
 		}else if(t == 4){
-			System.out.println("Enter end date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter end date in format " + formatter + ":");
 			task.setTime( task.getStartTime(), enterDateTime(), task.getRepeatInterval());
 		}else if(t == 5){
 			System.out.println("Enter interval");
@@ -174,16 +174,16 @@ public class LoadManager {
 		System.out.println("Is it repeated action? (enter 1, if yes, or 0, if not)");
 		t = in.nextInt();
 		if(t == 0){
-			System.out.println("Enter date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter date in format" + formatter + ":");
 			temp.setTime(enterDateTime());
 		}else if(t == 1){
 			LocalDateTime s;
 			LocalDateTime tt;
 			int i;
-			System.out.println("Enter start date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter start date in format " + formatter + ":");
 			s = enterDateTime();
 			temp.setTime(s);
-			System.out.println("Enter end date in format yyyy.MM.dd HH:mm:ss:");
+			System.out.println("Enter end date in format " + formatter + ":");
 			tt = enterDateTime();
 			temp.setTime(tt);
 			System.out.println("Enter interval");
