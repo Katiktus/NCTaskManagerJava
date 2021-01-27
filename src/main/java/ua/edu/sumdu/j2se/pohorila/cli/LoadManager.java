@@ -19,7 +19,6 @@ public class LoadManager {
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 	LinkedTaskList linkedTaskList = (LinkedTaskList) TaskListFactory.createTaskList(ListTypes.types.LINKED);
 	File file = new File("src//res.txt");
-	TaskIO taskIO;
 	static ScreenNotification snote;
 	static MailNotification mnote;
 	public static String mail;
@@ -27,7 +26,7 @@ public class LoadManager {
 
 	public void loader() throws IOException {
 		if(file.length()!=0) {
-			taskIO.readText(linkedTaskList, file);
+			TaskIO.readText(linkedTaskList, file);
 		}
 		System.out.println("Hello, it`s your Task Manager");
 		if (linkedTaskList.size() == 0) {
@@ -39,7 +38,7 @@ public class LoadManager {
 			}
 		}
 		choice();
-		taskIO.writeText(linkedTaskList, file);
+		TaskIO.writeText(linkedTaskList, file);
 	}
 
 	protected void choice() throws IOException {
