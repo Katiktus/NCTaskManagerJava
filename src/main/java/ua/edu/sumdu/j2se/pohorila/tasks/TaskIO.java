@@ -37,7 +37,7 @@ public class TaskIO {
 				Task task;
 				int length = stream.readInt();
 				String title = stream.readUTF();
-				Boolean active = (stream.readInt() == 1);
+				boolean active = (stream.readInt() == 1);
 				int interval = stream.readInt();
 				if(active){
 					long startTime = stream.readLong();
