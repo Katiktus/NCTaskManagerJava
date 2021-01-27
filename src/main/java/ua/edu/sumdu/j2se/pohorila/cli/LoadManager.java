@@ -79,8 +79,8 @@ public class LoadManager {
 			System.out.println("Your list is empty now");
 			log.info("Empty list");
 		}else {
-			for (int i = 0; i < linkedTaskList.size(); i++) {
-				System.out.println(i + "." + linkedTaskList.getTask(i).toString());
+			for (Task task: linkedTaskList) {
+				System.out.println(task.toString());
 			}
 			log.info("List output");
 		}
@@ -88,9 +88,9 @@ public class LoadManager {
 	}
 
 	protected void showCalendar() throws IOException {
-		System.out.println("Enter date of start in format " + formatter + ":");
+		System.out.println("Enter date of start in format yyyy.MM.dd HH:mm:");
 		LocalDateTime start = enterDateTime();
-		System.out.println("Enter date of end in format " + formatter + ":");
+		System.out.println("Enter date of end in format yyyy.MM.dd HH:mm:");
 		LocalDateTime end = enterDateTime();
 		if (!start.isAfter(end)) {
 			SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(linkedTaskList, start, end);
@@ -126,13 +126,13 @@ public class LoadManager {
 			String temp = in.nextLine();
 			task.setTitle(temp);
 		}else if(t == 2){
-			System.out.println("Enter date in format " + formatter + ":");
+			System.out.println("Enter date in format yyyy.MM.dd HH:mm:");
 			task.setTime(enterDateTime());
 		}else if(t == 3){
-			System.out.println("Enter start date in format " + formatter + ":");
+			System.out.println("Enter start date in format yyyy.MM.dd HH:mm:");
 			task.setTime(enterDateTime(), task.getEndTime(), task.getRepeatInterval());
 		}else if(t == 4){
-			System.out.println("Enter end date in format " + formatter + ":");
+			System.out.println("Enter end date in format yyyy.MM.dd HH:mm:");
 			task.setTime( task.getStartTime(), enterDateTime(), task.getRepeatInterval());
 		}else if(t == 5){
 			System.out.println("Enter interval");
@@ -174,16 +174,16 @@ public class LoadManager {
 		System.out.println("Is it repeated action? (enter 1, if yes, or 0, if not)");
 		t = in.nextInt();
 		if(t == 0){
-			System.out.println("Enter date in format" + formatter + ":");
+			System.out.println("Enter date in format" + formatter.toString() + ":");
 			temp.setTime(enterDateTime());
 		}else if(t == 1){
 			LocalDateTime s;
 			LocalDateTime tt;
 			int i;
-			System.out.println("Enter start date in format " + formatter + ":");
+			System.out.println("Enter start date in format yyyy.MM.dd HH:mm:");
 			s = enterDateTime();
 			temp.setTime(s);
-			System.out.println("Enter end date in format " + formatter + ":");
+			System.out.println("Enter end date in format yyyy.MM.dd HH:mm:");
 			tt = enterDateTime();
 			temp.setTime(tt);
 			System.out.println("Enter interval");
@@ -221,12 +221,12 @@ public class LoadManager {
 	}
 
 	protected void chooseNotification() throws IOException {
-		System.out.println("Do you want to receive notifications? (Y - if yes, N - if no)");
+		System.out.println("Do you want to receive notifications? (y - if yes, n - if no)");
 		String action = in.nextLine();
-		if(action == "Y"){
-			System.out.println("Do you want to receive mail or screen notifications? (M - if mail, S - if screen)");
+		if(action.equals("y")){
+			System.out.println("Do you want to receive mail or screen notifications? (m - if mail, s - if screen)");
 			String action1 = in.nextLine();
-			if(action1 == "M"){
+			if(action1.equals("m")){
 				System.out.println("Enter your mail: ");
 				mail = in.nextLine();
 				Runnable notify = new Runnable() {
@@ -240,7 +240,7 @@ public class LoadManager {
 				thread.start();
 				log.info("Choosen mail notification");
 			}
-			else if(action1 == "S"){
+			else if(action1.equals("s")){
 				Runnable notify = new Runnable() {
 					@Override
 					public void run() {
