@@ -14,14 +14,14 @@ public class LoadManager {
 	static Scanner in = new Scanner(System.in);
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 	LinkedTaskList linkedTaskList = (LinkedTaskList) TaskListFactory.createTaskList(ListTypes.types.LINKED);
-	File file = new File("src//res.txt");
 	static ScreenNotification snote;
 	static MailNotification mnote;
 	public static String mail;
 	private static Logger log = Logger.getLogger(LoadManager.class.getName());
 
 	public void loader() throws IOException {
-		if(file.length()!=0) {
+		File file = new File("src//res.txt");
+		if(file.length()!=0 && linkedTaskList.size() == 0) {
 			TaskIO.readText(linkedTaskList, file);
 		}
 		System.out.println("Hello, it`s your Task Manager");
@@ -110,6 +110,7 @@ public class LoadManager {
 	}
 
 	protected void edit() throws IOException {
+		File file = new File("src//res.txt");
 		System.out.println("Enter number of task to edit");
 		int i = in.nextInt();
 		System.out.print("What fo you want to edit? (enter tne number)\n" +
@@ -143,11 +144,13 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t edited");
 		}
+		file.delete();
 		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
 
 	protected void delete() throws IOException {
+		File file = new File("src//res.txt");
 		System.out.println("Enter number of task to delete");
 		int i = in.nextInt();
 		System.out.println("Do you really want to delete task " + i + "? (1 if yes, or smth else if no)");
@@ -158,11 +161,13 @@ public class LoadManager {
 		}else{
 			log.info("Task wasn`t deleted");
 		}
+		file.delete();
 		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
 
 	protected void add() throws IOException {
+		File file = new File("src//res.txt");
 		Task temp = new Task(" ",  LocalDateTime.now());
 		int t;
 		temp.setTime(LocalDateTime.now(), LocalDateTime.now(), 0);
@@ -174,7 +179,7 @@ public class LoadManager {
 		System.out.println("Is it repeated action? (enter 1, if yes, or 0, if not)");
 		t = in.nextInt();
 		if(t == 0){
-			System.out.println("Enter date in format" + formatter.toString() + ":");
+			System.out.println("Enter date in format yyyy.MM.dd HH:mm:");
 			temp.setTime(enterDateTime());
 		}else if(t == 1){
 			LocalDateTime s;
@@ -196,6 +201,7 @@ public class LoadManager {
 		}
 		linkedTaskList.add(temp);
 		log.info("Task was added");
+		file.delete();
 		TaskIO.writeText(linkedTaskList, file);
 		loader();
 	}
