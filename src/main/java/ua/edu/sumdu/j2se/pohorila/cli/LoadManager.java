@@ -30,7 +30,7 @@ public class LoadManager {
 		} else {
 			System.out.println("Your task list:");
 			for (Task task : linkedTaskList) {
-				System.out.println(linkedTaskList.toString());
+				System.out.println(task.toString());
 			}
 		}
 		choice();
