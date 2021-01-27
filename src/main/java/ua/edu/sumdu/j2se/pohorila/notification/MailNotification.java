@@ -2,14 +2,9 @@ package ua.edu.sumdu.j2se.pohorila.notification;
 import org.apache.log4j.Logger;
 import ua.edu.sumdu.j2se.pohorila.cli.LoadManager;
 import ua.edu.sumdu.j2se.pohorila.tasks.AbstractTaskList;
-import ua.edu.sumdu.j2se.pohorila.tasks.Task;
-import java.util.*;
-import javax.*;
-import java.util.Set;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 
 public class MailNotification implements Notification{
 	private static Logger log = Logger.getLogger(MailNotification.class.getName());
