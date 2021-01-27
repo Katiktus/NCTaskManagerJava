@@ -1,16 +1,10 @@
 package ua.edu.sumdu.j2se.pohorila.notification;
 
 import org.apache.log4j.Logger;
-import ua.edu.sumdu.j2se.pohorila.cli.LoadManager;
 import ua.edu.sumdu.j2se.pohorila.tasks.AbstractTaskList;
-import ua.edu.sumdu.j2se.pohorila.tasks.LinkedTaskList;
-import ua.edu.sumdu.j2se.pohorila.tasks.Task;
 import java.awt.*;
 import java.awt.TrayIcon.*;
 import java.net.MalformedURLException;
-import java.util.Set;
-
-import static ua.edu.sumdu.j2se.pohorila.tasks.Tasks.incoming;
 
 public class ScreenNotification implements Notification{
 	private static Logger log = Logger.getLogger(ScreenNotification.class.getName());
