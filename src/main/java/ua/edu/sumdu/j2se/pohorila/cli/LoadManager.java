@@ -14,8 +14,6 @@ public class LoadManager {
 	static Scanner in = new Scanner(System.in);
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 	LinkedTaskList linkedTaskList = (LinkedTaskList) TaskListFactory.createTaskList(ListTypes.types.LINKED);
-	static ScreenNotification snote;
-	static MailNotification mnote;
 	public static String mail;
 	private static Logger log = Logger.getLogger(LoadManager.class.getName());
 
@@ -228,17 +226,21 @@ public class LoadManager {
 
 	protected void chooseNotification() throws IOException {
 		System.out.println("Do you want to receive notifications? (y - if yes, n - if no)");
+		in.nextLine();
 		String action = in.nextLine();
 		if(action.equals("y")){
 			System.out.println("Do you want to receive mail or screen notifications? (m - if mail, s - if screen)");
 			String action1 = in.nextLine();
 			if(action1.equals("m")){
+				MailNotification m = new MailNotification();
 				System.out.println("Enter your mail: ");
 				mail = in.nextLine();
 				Runnable notify = new Runnable() {
 					@Override
 					public void run() {
-						mnote.notify();
+						synchronized (m) {
+							m.notify();
+						}
 					}
 				};
 				Thread thread = new Thread(notify);
@@ -247,10 +249,13 @@ public class LoadManager {
 				log.info("Choosen mail notification");
 			}
 			else if(action1.equals("s")){
+				ScreenNotification s = new ScreenNotification();
 				Runnable notify = new Runnable() {
 					@Override
 					public void run() {
-						snote.notify();
+						synchronized (s) {
+							s.notify();
+						}
 					}
 				};
 				Thread thread = new Thread(notify);
