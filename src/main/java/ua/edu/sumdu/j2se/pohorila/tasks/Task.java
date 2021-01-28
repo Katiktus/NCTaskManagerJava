@@ -40,7 +40,7 @@ public class Task implements Cloneable, Serializable {
             this.time = time;
         }
         this.title = title;
-        this.active = false;
+        this.active = true;
         this.repeated = false;
     }
 
@@ -60,7 +60,7 @@ public class Task implements Cloneable, Serializable {
             this.interval = interval;
         }
         this.title = title;
-        this.active = false;
+        this.active = true;
         this.repeated = true;
     }
 
