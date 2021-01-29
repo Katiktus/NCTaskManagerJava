@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Tasks {
+	/**
+	 * Methhod for getting incoming tasks.
+	 * @return list of incoming tasks.
+	 */
 	public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end){
 		AbstractTaskList incomingTasks = TaskListFactory.createTaskList(ListTypes.types.LINKED);
 		Iterator<Task> it = tasks.iterator();
@@ -17,6 +21,13 @@ public class Tasks {
 		return incomingTasks;
 	}
 
+	/**
+	 * Method for return calendar.
+	 * @param tasks list of tasks.
+	 * @param start date of start.
+	 * @param end date of end.
+	 * @return calendar of tasks.
+	 */
 	public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end){
 		SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
 		tasks = Tasks.incoming(tasks, start, end);

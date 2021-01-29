@@ -115,6 +115,10 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 			return p1.task;
 	}
 
+	/**
+	 * Overriding iterator.
+	 * @return task.
+	 */
 	@Override
 	public	Iterator<Task> iterator() {
 
@@ -149,6 +153,11 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 		return it;
 	}
 
+	/**
+	 * Overriding equals method.
+	 * @param o object for comparison.
+	 * @return result of comparison.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -169,6 +178,10 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 		return true;
 	}
 
+	/**
+	 * Method for returning hash code;
+	 * @return hash code.
+	 */
 	@Override
 	public int hashCode() {
 		int hash = 1;
@@ -176,11 +189,20 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable{
 		return hash;
 	}
 
+	/**
+	 * Method for clone task list.
+	 * @return clone.
+	 * @throws CloneNotSupportedException
+	 */
 	@Override
 	public LinkedTaskList clone() throws CloneNotSupportedException {
 		return (LinkedTaskList) super.clone();
 	}
 
+	/**
+	 * Method for getting stream.
+	 * @return stream.
+	 */
 	public Stream<Task> getStream() {
 		Task[] tasks = new Task[this.size()];
 		for(int i = 0; i < size(); ++i) {

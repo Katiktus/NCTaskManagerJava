@@ -17,6 +17,10 @@ public class LoadManager {
 	public static String mail;
 	private static Logger log = Logger.getLogger(LoadManager.class.getName());
 
+	/**
+	 * Method for loading interface.
+	 * @throws IOException
+	 */
 	public void loader() throws IOException {
 		File file = new File("src//res.txt");
 		if(file.length()!=0 && linkedTaskList.size() == 0) {
@@ -34,6 +38,10 @@ public class LoadManager {
 		choice();
 	}
 
+	/**
+	 * Method for giving a choice to the user.
+	 * @throws IOException
+	 */
 	protected void choice() throws IOException {
 		int action = 0;
 		System.out.print("What do you want? (enter tne number)\n" +
@@ -72,6 +80,10 @@ public class LoadManager {
 		}
 	}
 
+	/**
+	 * Method for printing task list.
+	 * @throws IOException
+	 */
 	protected void showList() throws IOException {
 		if(linkedTaskList.size() <= 0){
 			System.out.println("Your list is empty now");
@@ -85,6 +97,10 @@ public class LoadManager {
 		loader();
 	}
 
+	/**
+	 * Method for printing calendar of tasks for a certain period/.
+	 * @throws IOException
+	 */
 	protected void showCalendar() throws IOException {
 		System.out.println("Enter date of start in format yyyy.MM.dd HH:mm:");
 		LocalDateTime start = enterDateTime();
@@ -107,6 +123,10 @@ public class LoadManager {
 		loader();
 	}
 
+	/**
+	 * Method for editing tasks.
+	 * @throws IOException
+	 */
 	protected void edit() throws IOException {
 		File file = new File("src//res.txt");
 		System.out.println("Enter number of task to edit");
@@ -147,6 +167,10 @@ public class LoadManager {
 		loader();
 	}
 
+	/**
+	 * Method for deleting tasks.
+	 * @throws IOException
+	 */
 	protected void delete() throws IOException {
 		File file = new File("src//res.txt");
 		System.out.println("Enter number of task to delete");
@@ -164,6 +188,10 @@ public class LoadManager {
 		loader();
 	}
 
+	/**
+	 * Method for adding tasks.
+	 * @throws IOException
+	 */
 	protected void add() throws IOException {
 		File file = new File("src//res.txt");
 		Task temp = new Task(" ",  LocalDateTime.now());
@@ -204,6 +232,10 @@ public class LoadManager {
 		loader();
 	}
 
+	/**
+	 * Method for entering date from console.
+	 * @return
+	 */
 	private static LocalDateTime enterDateTime() {
 		while (in.hasNext()) {
 			String date = in.nextLine();
@@ -224,6 +256,10 @@ public class LoadManager {
 		return enterDateTime();
 	}
 
+	/**
+	 * Method for mail or screen notification.
+	 * @throws IOException
+	 */
 	protected void chooseNotification() throws IOException {
 		System.out.println("Do you want to receive notifications? (y - if yes, n - if no)");
 		in.nextLine();

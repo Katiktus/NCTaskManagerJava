@@ -213,26 +213,36 @@ public class Task implements Cloneable, Serializable {
 
     }
 
+    /**
+     * Overriding equals method.
+     * @param o object for comparison.
+     * @return result of comparison.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
         return
-            // time == task.time &&
-           // start == task.start &&
-           // end == task.end &&
             interval == task.interval &&
             active == task.active &&
             repeated == task.repeated &&
             title.equals(task.title);
     }
 
+    /**
+     * Method for returning hash code.
+     * @return hash code.
+     */
     @Override
     public int hashCode() {
         return hash(interval, title);
     }
 
+    /**
+     * Method for presenting task like string.
+     * @return string.
+     */
     @Override
     public String toString() {
         return "Task{" +
@@ -246,6 +256,11 @@ public class Task implements Cloneable, Serializable {
             '}';
     }
 
+    /**
+     * Method for clone task.
+     * @return task clone.
+     * @throws CloneNotSupportedException
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

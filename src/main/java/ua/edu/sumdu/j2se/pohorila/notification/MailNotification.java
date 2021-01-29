@@ -6,8 +6,14 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+
 public class MailNotification implements Notification{
 	private static Logger log = Logger.getLogger(MailNotification.class.getName());
+
+	/**
+	 * Method for email notifications.
+	 * @param tasks list of tasks
+	 */
 	@Override
 	public void notify(AbstractTaskList tasks) {
 		String to = LoadManager.mail;

@@ -8,6 +8,11 @@ import java.net.MalformedURLException;
 
 public class ScreenNotification implements Notification{
 	private static Logger log = Logger.getLogger(ScreenNotification.class.getName());
+
+	/**
+	 * Method for screen notifications.
+	 * @param tasks list of tasks
+	 */
 	@Override
 	public void notify(AbstractTaskList tasks) throws MalformedURLException, AWTException {
 			if (SystemTray.isSupported()) {
@@ -20,14 +25,20 @@ public class ScreenNotification implements Notification{
 			}
 		}
 
-			public void display(AbstractTaskList tasks) throws AWTException, MalformedURLException {
-				SystemTray tray = SystemTray.getSystemTray();
-				Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
-				TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
-				trayIcon.setImageAutoSize(true);
-				trayIcon.setToolTip("System tray icon demo");
-				tray.add(trayIcon);
-				trayIcon.displayMessage("Task list", String.valueOf(tasks), MessageType.INFO);
-				log.info("display method of screen notification");
-			}
+	/**
+	 * Method for display notification.
+ 	 * @param tasks list of tasks.
+	 * @throws AWTException
+	 * @throws MalformedURLException
+	 */
+	public void display(AbstractTaskList tasks) throws AWTException, MalformedURLException {
+			SystemTray tray = SystemTray.getSystemTray();
+			Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+			TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+			trayIcon.setImageAutoSize(true);
+			trayIcon.setToolTip("System tray icon demo");
+			tray.add(trayIcon);
+			trayIcon.displayMessage("Task list", String.valueOf(tasks), MessageType.INFO);
+			log.info("display method of screen notification");
 		}
+	}

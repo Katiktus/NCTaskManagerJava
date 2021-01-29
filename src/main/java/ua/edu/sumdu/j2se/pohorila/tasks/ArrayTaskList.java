@@ -65,9 +65,10 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		return isRemove;
 	}
 
-	/**Method that returns task from the index
-	 * @param index index of necessary task
-	 * @return needed task or null if index < 0*/
+	/**Method that returns task from the index.
+	 * @param index index of necessary task.
+	 * @return needed task or null if index < 0.
+	 */
 	public Task getTask(int index) throws IndexOutOfBoundsException{
 		if(index < 0 || index > tasks.length){
 			throw new IndexOutOfBoundsException("index > size of array or < 0");
@@ -77,6 +78,10 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		}
 	}
 
+	/**
+	 * Overriding iterator.
+	 * @return task.
+	 */
 	@Override
 	public Iterator<Task> iterator() {
 		Iterator<Task> it = new Iterator<Task>() {
@@ -108,6 +113,11 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		return it;
 	}
 
+	/**
+	 * Overriding equals method.
+	 * @param o object for comparison.
+	 * @return result of comparison.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -118,11 +128,19 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		return Arrays.equals(tasks, tasks1.tasks);
 	}
 
+	/**
+	 * Method for returning hash code.
+	 * @return hash code.
+	 */
 	@Override
 	public int hashCode(){
 		return size()^tasks.length*16+1;
 	}
 
+	/**
+	 * Method for present task list as string.
+	 * @return string view of task.
+	 */
 	@Override
 	public String toString() {
 		return "ArrayTaskList{" +
@@ -130,6 +148,11 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 			'}';
 	}
 
+	/**
+	 * Method for clone task list.
+	 * @return clone.
+	 * @throws CloneNotSupportedException
+	 */
 	@Override
 	public ArrayTaskList clone() throws CloneNotSupportedException {
 		ArrayTaskList clone = new ArrayTaskList();
@@ -139,6 +162,10 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable{
 		return clone;
 	}
 
+	/**
+	 * Method for getting stream.
+	 * @return stream.
+	 */
 	public Stream<Task> getStream() {
 		Task[] tasks = new Task[this.size()];
 		for(int i = 0; i < size(); ++i) {
